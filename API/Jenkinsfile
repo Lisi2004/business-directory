@@ -18,5 +18,12 @@ pipeline {
                 echo "Integration Test"
             }
         }
-    }
+    } post {
+		success {
+			echo "Sucess"
+		}
+		failure {
+			echo "Failure"
+		}
+	}
 }
