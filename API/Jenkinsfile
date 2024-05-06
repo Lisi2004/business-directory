@@ -1,5 +1,3 @@
-
-//Declerative
 pipeline {
     agent any
     stages {
@@ -18,12 +16,13 @@ pipeline {
                 echo "Integration Test"
             }
         }
-    } post {
-		success {
-			echo "Sucess"
-		}
-		failure {
-			echo "Failure"
-		}
-	}
+    }
+    post {
+        success {
+            echo "Success"
+        }
+        failure {
+            echo "Failure"
+        }
+    }
 }
