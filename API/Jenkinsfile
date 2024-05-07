@@ -2,13 +2,12 @@ pipeline {
     agent any
     environment {
         dockerHome = tool 'myDocker'
-        mavenHome = tool 'myMaven'
-        PATH = "$dockerHome/bin:$mavenHome/bin:$PATH"
+        // No need for Maven home
+        PATH = "$dockerHome/bin:$PATH"
     }
     stages {
         stage('Checkout') {
             steps {
-                sh 'mvn --version'
                 sh 'docker version'
                 echo "Build"
                 echo "PATH - $PATH"
@@ -21,20 +20,20 @@ pipeline {
         }
         stage('Compile') {
             steps {
-                // Specify the path to pom.xml for the compile phase
-                sh "mvn -f API/pom.xml clean compile"
+                // Replace this with MSBuild command for compilation
+                sh "msbuild API/server.csproj /t:Build"
             }
         }
         stage('Test') {
             steps {
-                // Specify the path to pom.xml for the test phase
-                sh "mvn -f API/pom.xml test"
+                // Replace this with MSBuild command for running tests
+                sh "msbuild API/server.csproj /t:Test"
             }
         }
         stage('Integration Test') {
             steps {
-                // Specify the path to pom.xml for the integration test phase
-                sh "mvn -f API/pom.xml failsafe:integration-test failsafe:verify"
+                // Replace this with MSBuild command for running integration tests
+                sh "msbuild API/server.csproj /t:IntegrationTest"
             }
         }
     }
